@@ -173,25 +173,46 @@ Using LHCb open data measure Z boson mass and other important variables (observa
         \end{figure}
 
 
-        Track types:
+
+        Tracking system consists of:
         \begin{enumerate}
-            \item \textbf{VeLo}
-            \item \textbf{backward}
-            \item \textbf{upstream}
-            \item \textbf{T}
-            \item \textbf{downstream}
-            \item \textbf{long}
-            \item \textbf{$\mu$ stubs}
-            \item \textbf{$\mu$ TT}
-            \item \textbf{TT}
+            \item \textbf{Vertex locator (VeLo)} - a silicon strip detector very close to the interaction point measuring the radial and azimuthal coordinates.
+
+            \item \textbf{TT} - another silicon strip detector with two stereo layers at $5^\circ$  in front of a dipole magnet with a peak field strength of $1 T$.
+
+            \item \textbf{T} - another tracking station after the magnet consisting of silicon strip detectors in the forward region (IT) and drift tubes are more central rapidity (OT).
         \end{enumerate}
 
-        Calorimetry:
+        Track types:
         \begin{enumerate}
-            \item \textbf{Scintilating pad detector (SPD)}
-            \item \textbf{Preshower (PS)}
-            \item \textbf{Electromagnetic calorimeter (ECAL)}
-            \item \textbf{Hadronic calorimeter (HCAL)}
+            \item \textbf{VeLo} - tracks that are easured only by the VeLo. Those tracks are mainly used to find \underline{primary vertex and the decay vertices}. The magnetic field integral seen by these tracks is small and this there is \textit{no momentum estimate available}.
+            
+            \item \textbf{backward} - like VeLo tracks but those tracks are pointing in the backward direction.
+            
+            \item \textbf{upstream} - VeLo tracks extrapolated to the TT station and \textit{matched to hits in the TT station}. These tracks do see the fringe field of the magnet and this \underline{have a momentum estimate}. These tracks can in principle be reconstructed at very low momentum but practically the momentum acceptance is limited by the search windows in the algorithm to $p_T > 200 MeV$.
+            
+            \item \textbf{T} - tracks reconstructed in T stations only. These tracks don't see a large magnetic field inside the measured segment but together with the assumption that they originate from the PV \underline{they can get a momentum estimate assigned}. These tracks \underline{play a role as intermediate objects in the reconstruction of other tracks} and also for te understanding of the \underline{contribution of secondary particles to the photons seen in RICH2}. They are also used to \underline{veto charged particles in te neutral hadron reconstruction for jets}.
+            
+            \item \textbf{downstream} - T tracks matched to hits in the TT station. Those tracks \underline{have measurements on both sides of the dipole magnet and thus a well measured momentum}. For physics analyses they are of special importance for the reconstruction of $K^{0}_{S}$ and $\Lambda$ which often decay after the VeLo.
+            
+            \item \textbf{long} - tracks that do have measurements both in the VeLo and the T station. Hits in the TT station are not required for a long track and added when found compatible. \underline{If foud these hits improve momentum resolution} and recurse the probability that the long track is a random combination of hits tht does not correspond to a real particle i. e. a ghost. \underline{Long tracks are the major workhorse of the physics analyses}.
+            
+            \item \textbf{$\mu$ stubs} - tracks reconstructed in the \underline{muon system} only. Their major use is in the \textit{earliest trigger stage}. With the assumption that muons tracks originate from the luminous region \underline{a momentum estimate is possible}. This allows to trigger on \underline{high momentum muons and dimuons}.
+            
+            \item \textbf{$\mu$ TT} - muon stubs reconstructed offline that are matched to hits in the TT station. Those track are mainly used for the \underline{estimation of the efficiency} for the reconstruction of long tracks.
+            
+            \item \textbf{TT} - not reconstructed since the TT station has four layers with a stereo angle. Thus a particle leaving hits in all layers would have two points measured that can be reconstructed as a straight line. There is no redundancy in such a easurement and thus no $\chi^2$ and no handle to discriminate ghost tracks.
+        \end{enumerate}
+
+        The \textbf{calorimeter} system is mainly designed for the use in the \textbf{trigger} and for \textbf{particle identification}:
+        \begin{enumerate}
+            \item \textbf{Scintilating pad detector (SPD)} - the first layer. It consists o scintillating pads of different size made from doped polystyrene which are read for each bunch crossing using wavelength shifting fibres. It serves two purposes. In the earliest trigger statge the number of pads that see a signal is used as a \underline{measure of the total occupancy}. Events with less than 10 cells fired are selected by triggers for exclusive processes. The total multiplicity is also used to reject events at the trigger level that require a lot of CPU time in the later software triggers. \textit{Single muon trigger requires the multiplicity to be less than 600 hits and the dimuon trigger asks for less than 900 hits}. The second use of the SPD is \underline{discrimination of electron and photon candidates both at trigger level and offline}. Electrons are more likely to leave a signal in the SPD since that detector doesn't contain absorbers.
+            
+            \item \textbf{Preshower (PS)} - is built in a similar way as the SPD, but separated from the SPD by a 15 mm lead plate which corresponds to 2.5 electromagnetic radiation lengths. \underline{This is used to discriminate electrons and photons from hadrons}
+            
+            \item \textbf{Electromagnetic calorimeter (ECAL)} - is a calorimeter build in the shashlik technology. That is a structure of lead tiles interleaved by scintillator tiles which are read out by wavelength shifting fibers. It covers 25 electromagnetic radiation lengths. At very high momentum it saturates which limits the bremsstrahlung correections on electrons and significantly \textit{worsens the mass resolution} in the $Z \rightlongarrow e^{+} e^{-}$.
+            
+            \item \textbf{Hadronic calorimeter (HCAL)} - is not meant to reconstruct particle candidates to be used in any offline analysis. Its main purpose is to \underline{provide a trigger for full hadronic final states of the beauty hadron}. Therefore compromises have been made - especially in terms of the limited space in the cavern - leading to a calorimeter that uses 5.6 hadronic interaction lengths in only 1.6 meeters.
         \end{enumerate}
 
         The trigger is organised in three stages:
@@ -222,7 +243,25 @@ Using LHCb open data measure Z boson mass and other important variables (observa
 
         \item Data types used in LHCb.
 
-        \textbf{[TODO: answer]}
+        According to official \hyperlink{https://twiki.cern.ch/twiki/bin/view/LHCb/RecommendedTags}{wiki}:
+
+        For real data, new tags mean better description of existing detector. For MC data, the best description is the one used during the simulation step. Therefore, why different Tags for MC?
+
+        \begin{enumerate}
+            \item Special settings, Velo open, B field off, ... are identified with a Tag and this Tag needs to be used when reconstructing and analysing the data.
+            \item There can be changes in the software which require changes in the databases. Newer software versions might not work anymore with old Tag of database. Requires some intelligence for defining compatible tags.
+        \end{enumerate}
+
+
+        Default tags:
+        \begin{enumerate}
+            \item \textbf{'DC06'}: “DC06-20081002“ for DDDB and LHCBCONDNote: SIMCOND does not exist for DC06, Simulation flag set to False, bfield polarity = -1 forced
+            \item \textbf{'2008'}: “head-20090330” for DDDB, “head-20090402” for LHCBCOND and “sim-20090212” for SIMCOND
+            \item \textbf{'MC09'}: “MC09-20090602” for DDDB and “sim-20090402-vc-md100” for SIMCOND, Simulation flag ignored
+            \item \textbf{'2009'}: “head-20090617” for DDDB, “head-20090508” for LHCBCOND and “sim-20090508-vc-md100” for SIMCOND. Simulation flag for switching between SIMCOND and LHCBCOND
+            \item And some more undocumented tags for each of the year of run (for example "2011", "2012" as used in this analysis).
+        \end{enumerate}
+
         
     \end{enumerate}
 
