@@ -15,7 +15,7 @@ Detailed description of the analysis and theoretical background can be found in 
 - [ ] Choose a reasonable selection and process all the data sources with it.
 
 - [ ] Fit Z mass to Gauss and Breit-Widgner line shapes.
-- [ ] Try to compare results with (PDG)[https://pdg.lbl.gov/]
+- [ ] Try to compare results with [PDG](https://pdg.lbl.gov/)
 
 If possible:
 - [ ] Use tag-and-probe method to determine the detection efficiency for _tight electrons_ in data as function of $p_T$.
