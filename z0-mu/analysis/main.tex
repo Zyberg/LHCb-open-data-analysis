@@ -116,6 +116,7 @@ Using LHCb open data measure Z boson mass and other important variables (observa
         
         \item Main graphs drawn when analysing Z boson decay into two muons. What properties are usually analysed?
 
+        \textbf{TODO: write this info in a more concise manner, mention how Weinberg angle depends on the mixing of stuff}
 
         These are the parameters analysed in a few different research papers:
         \begin{enumerate}
@@ -172,6 +173,28 @@ Using LHCb open data measure Z boson mass and other important variables (observa
             \label{fig:001-LHCb_detector}
         \end{figure}
 
+        \underline{Cherenkov detector} - a particle passing through a material at a velocity greater than that at which light can travel through the material emits light. This is similar to the production of a sonic boom when an airplane is traveling through the air faster than sound waves can move through the air. The direction this light is emitted is on a cone with angle $\Theta_c$ about the direction in which the particle is moving, with $cos(\Theta_c) = \frac{c}{nv}$ (c = the vacuum speed of light, n - the refractive index of the medium, and v is the speed of the particle). The angle of the cone $\Theta_c$ thus is a direct measure of the particle's speed. 
+
+        \underline{Cherenkov angle} - as in sonic booms and bow shocks, the angle of the shock cone is directly related to the velocity of the disruption. The Cherenkov angle is zero at the threshold velocity for the emission of Cherenkov radiation. The angle takes on a maximum as the particle speed approaches the speed of light. Hence, observed angles of incidence can be used to compute the direction and speed of a Cherenkov radiation-producing charge.
+
+        \begin{figure}[H]
+            \centering
+
+            \includegraphics[width=0.7\textwidth]{visuals/007-cherenkov-simulated-RICH1.png}
+            
+            \caption{Simulated event as seen from RICH1\cite{Bursche:2014ltl}.}
+            \label{fig:007-RICH1-simulation}
+        \end{figure}
+
+        \begin{figure}[H]
+            \centering
+
+            \includegraphics[width=0.7\textwidth]{visuals/008-cherenkov-angle-distribution.png}
+            
+            \caption{Distribution of Cherenkov angle and momentum in the \ce{C4 F10} radiator gas of RICH1\cite{Bursche:2014ltl}.}
+            \label{fig:007-RICH1-simulation}
+        \end{figure}
+
 
 
         Tracking system consists of:
@@ -192,6 +215,8 @@ Using LHCb open data measure Z boson mass and other important variables (observa
             \item \textbf{upstream} - VeLo tracks extrapolated to the TT station and \textit{matched to hits in the TT station}. These tracks do see the fringe field of the magnet and this \underline{have a momentum estimate}. These tracks can in principle be reconstructed at very low momentum but practically the momentum acceptance is limited by the search windows in the algorithm to $p_T > 200 MeV$.
             
             \item \textbf{T} - tracks reconstructed in T stations only. These tracks don't see a large magnetic field inside the measured segment but together with the assumption that they originate from the PV \underline{they can get a momentum estimate assigned}. These tracks \underline{play a role as intermediate objects in the reconstruction of other tracks} and also for te understanding of the \underline{contribution of secondary particles to the photons seen in RICH2}. They are also used to \underline{veto charged particles in te neutral hadron reconstruction for jets}.
+
+            \item \textbf{RICH1, RICH2} - two ring imaging Cherenkov detector (1 - upstream; 2 - downstream of the dipole magnet). Used to discriminate between the stable charged hadrons for the execution of the extensive flavour physics programme of LHCb. Several radiators are used in order to reach a good sensitivity in a large momentum region. There are two radiators (Aerogel and \ce{C4} \ce{F10}) in RICH1 and one radiator (\ce{CF4}) in RICH2.
             
             \item \textbf{downstream} - T tracks matched to hits in the TT station. Those tracks \underline{have measurements on both sides of the dipole magnet and thus a well measured momentum}. For physics analyses they are of special importance for the reconstruction of $K^{0}_{S}$ and $\Lambda$ which often decay after the VeLo.
             
@@ -227,6 +252,8 @@ Using LHCb open data measure Z boson mass and other important variables (observa
 
 
         \item Data types used in LHCb.
+
+        \textbf{TODO: write about .DST, .mDST}
 
         According to official \hyperlink{https://twiki.cern.ch/twiki/bin/view/LHCb/RecommendedTags}{wiki}:
 
