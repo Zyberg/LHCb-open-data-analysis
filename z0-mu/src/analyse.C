@@ -522,11 +522,11 @@ void plotProbNNmu(TTree* tree) {
 void plotRapidity(TTree* decayTree) {
     TCanvas* canvas = new TCanvas("canvas", "Rapidity plot", 800, 600);
 
-    TH1F* histogramRapidityMuon1 = new TH1F("rapidity1", "rapidity1", 100, 1, 5.5);
-    histogramRapidityMuon1->SetLineColor(kGreen);
+    TH1F* histogramLeadingRapidity = new TH1F("rapidity_leading", "Rapidity Leading", 100, 1, 5.5);
+    histogramLeadingRapidity->SetLineColor(kGreen);
 
-    TH1F* histogramRapidityMuon2 = new TH1F("rapidity2", "rapidity2", 100, 1, 5.5);
-    histogramRapidityMuon2->SetLineColor(kBlue);
+    TH1F* histogramSubleadingRapidity = new TH1F("rapidity_subleading", "Rapidity Subleading", 100, 1, 5.5);
+    histogramSubleadingRapidity->SetLineColor(kRed);
 
     Double_t muon1_M, muon1_PX, muon1_PY, muon1_PZ;
     Double_t muon2_M, muon2_PX, muon2_PY, muon2_PZ;
@@ -549,29 +549,95 @@ void plotRapidity(TTree* decayTree) {
         TLorentzVector muon1(muon1_PX, muon1_PY, muon1_PZ, TMath::Sqrt(muon1_M*muon1_M + muon1_PX*muon1_PX + muon1_PY*muon1_PY + muon1_PZ*muon1_PZ));
         TLorentzVector muon2(muon2_PX, muon2_PY, muon2_PZ, TMath::Sqrt(muon2_M*muon2_M + muon2_PX*muon2_PX + muon2_PY*muon2_PY + muon2_PZ*muon2_PZ));
 
-        // Calculate invariant mass
-        Double_t rapidity1 = muon1.Rapidity();
-        Double_t rapidity2 = muon2.Rapidity();
+        Double_t rapidityLeading = muon1.Rapidity(); 
+        double_t rapiditySubleading = muon2.Rapidity();
+
+        if(muon1.Pt() < muon2.Pt()) {
+            rapidityLeading = muon2.Rapidity(); 
+            rapiditySubleading = muon1.Rapidity();
+        }
 
         // Fill the histogram
-        histogramRapidityMuon1->Fill(rapidity1);
-        histogramRapidityMuon2->Fill(rapidity2);
+        histogramLeadingRapidity->Fill(rapidityLeading);
+        histogramSubleadingRapidity->Fill(rapiditySubleading);
     }
 
     THStack* stack = new THStack("Rapidity_stack", "Muon Rapidity Distribution");
-    stack->Add(histogramRapidityMuon1);
-    stack->Add(histogramRapidityMuon2);
+    stack->Add(histogramLeadingRapidity);
+    stack->Add(histogramSubleadingRapidity);
 
     stack->Draw("nostack");
 
     // Add legend
     TLegend* legend = new TLegend(0.7, 0.7, 0.9, 0.9);
-    legend->AddEntry(histogramRapidityMuon1, "muon1");
-    legend->AddEntry(histogramRapidityMuon2, "muon2");
+    legend->AddEntry(histogramLeadingRapidity, "Leading Muon Rapidity");
+    legend->AddEntry(histogramSubleadingRapidity, "Subleading Muon Rapidity");
     legend->Draw();
 
     // Set axis labels
     stack->GetXaxis()->SetTitle("Rapidity");
+    stack->GetYaxis()->SetTitle("Frequency");
+
+    canvas->Draw();
+}
+
+void plotPseudorapidity(TTree* decayTree) {
+        TCanvas* canvas = new TCanvas("canvas", "Rapidity plot", 800, 600);
+
+    TH1F* histogramLeadingPseudorapidity = new TH1F("pseudorapidity_leading", "Pseudorapidity Leading", 100, 1, 5.5);
+    histogramLeadingPseudorapidity->SetLineColor(kGreen);
+
+    TH1F* histogramSubleadingPseudorapidity = new TH1F("pseudorapidity_subleading", "Pseudorapidity Subleading", 100, 1, 5.5);
+    histogramSubleadingPseudorapidity->SetLineColor(kRed);
+
+    Double_t muon1_M, muon1_PX, muon1_PY, muon1_PZ;
+    Double_t muon2_M, muon2_PX, muon2_PY, muon2_PZ;
+
+    decayTree->SetBranchAddress("muon1_M", &muon1_M);
+    decayTree->SetBranchAddress("muon1_PX", &muon1_PX);
+    decayTree->SetBranchAddress("muon1_PY", &muon1_PY);
+    decayTree->SetBranchAddress("muon1_PZ", &muon1_PZ);
+    decayTree->SetBranchAddress("muon2_M", &muon2_M);
+    decayTree->SetBranchAddress("muon2_PX", &muon2_PX);
+    decayTree->SetBranchAddress("muon2_PY", &muon2_PY);
+    decayTree->SetBranchAddress("muon2_PZ", &muon2_PZ);
+
+
+    int nEntries = decayTree->GetEntries();
+    for (int i = 0; i < nEntries; ++i) {
+        decayTree->GetEntry(i);
+
+        // Create TLorentzVectors for each muon
+        TLorentzVector muon1(muon1_PX, muon1_PY, muon1_PZ, TMath::Sqrt(muon1_M*muon1_M + muon1_PX*muon1_PX + muon1_PY*muon1_PY + muon1_PZ*muon1_PZ));
+        TLorentzVector muon2(muon2_PX, muon2_PY, muon2_PZ, TMath::Sqrt(muon2_M*muon2_M + muon2_PX*muon2_PX + muon2_PY*muon2_PY + muon2_PZ*muon2_PZ));
+
+        Double_t pseudorapidityLeading = muon1.PseudoRapidity(); 
+        double_t pseudorapiditySubleading = muon2.PseudoRapidity();
+
+        if(muon1.Pt() < muon2.Pt()) {
+            pseudorapidityLeading = muon2.PseudoRapidity(); 
+            pseudorapiditySubleading = muon1.PseudoRapidity();
+        }
+
+        // Fill the histogram
+        histogramLeadingPseudorapidity->Fill(pseudorapidityLeading);
+        histogramSubleadingPseudorapidity->Fill(pseudorapiditySubleading);
+    }
+
+    THStack* stack = new THStack("Pseudorapidity_stack", "Muon Pseudo Rapidity Distribution");
+    stack->Add(histogramLeadingPseudorapidity);
+    stack->Add(histogramSubleadingPseudorapidity);
+
+    stack->Draw("nostack");
+
+    // Add legend
+    TLegend* legend = new TLegend(0.7, 0.7, 0.9, 0.9);
+    legend->AddEntry(histogramLeadingPseudorapidity, "Leading Muon Pseudo Rapidity");
+    legend->AddEntry(histogramSubleadingPseudorapidity, "Subleading Muon Pseudo Rapidity");
+    legend->Draw();
+
+    // Set axis labels
+    stack->GetXaxis()->SetTitle("Pseudo Rapidity");
     stack->GetYaxis()->SetTitle("Frequency");
 
     canvas->Draw();
@@ -719,9 +785,11 @@ void analyse() {
 
     // plotRapidity(decayTree);
 
+    plotPseudorapidity(decayTree);
+
     // plotLeptonSumPT(decayTree);
 
-    plotLeptonSumRapidity(decayTree);
+    // plotLeptonSumRapidity(decayTree);
     
 
     // ======================================================
