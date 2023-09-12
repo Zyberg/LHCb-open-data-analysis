@@ -1,5 +1,8 @@
+#define GraphingManager_cxx
 #define ZDecayAnalyser_cxx
 
+#include "HistogramConfig.h"
+#include "GraphingManager.h"
 #include "ZDecayAnalyser.h"
 #include <TH2.h>
 #include <TStyle.h>
@@ -7,7 +10,6 @@
 
 #include <TH1.h>
 #include <TMath.h>
-
 
 inline const char HISTOGRAM_LEADING_PT[] = "LeadingPT";
 inline const char HISTOGRAM_SUBLEADING_PT[] = "SubleadingPT";
@@ -26,7 +28,9 @@ inline const char HISTOGRAM_Z_PT[] = "ZPT";
 
 inline const char HISTOGRAM_SUM_RAPIDITY[] = "SumRapidity";
 
-void ZDecayAnalyser::LoadConfig() {
+GraphingManager graphingManager;
+
+void GraphingManager::LoadConfig() {
     this->canvasConfigurations = {
             {
                     "canvas_muon_pt",
@@ -118,28 +122,28 @@ void ZDecayAnalyser::ProcessFill() {
     }
 
     // PT
-    this->histogramDictionary[HISTOGRAM_LEADING_PT]->Fill(leading_PT);
-    this->histogramDictionary[HISTOGRAM_SUBLEADING_PT]->Fill(subleading_PT);
+    graphingManager.histogramDictionary[HISTOGRAM_LEADING_PT]->Fill(leading_PT);
+    graphingManager.histogramDictionary[HISTOGRAM_SUBLEADING_PT]->Fill(subleading_PT);
 
     // Invariant Mass
-    this->histogramDictionary[HISTOGRAM_INVARIANT_MASS_TLORENTZ]->Fill(total.M());
-    this->histogramDictionary[HISTOGRAM_INVARIANT_MASS_SIMPLE]->Fill(CalculateInvariantMassSimple(muon1, muon2));
+    graphingManager.histogramDictionary[HISTOGRAM_INVARIANT_MASS_TLORENTZ]->Fill(total.M());
+    graphingManager.histogramDictionary[HISTOGRAM_INVARIANT_MASS_SIMPLE]->Fill(CalculateInvariantMassSimple(muon1, muon2));
 
 
     // ProbNNmu
-    this->histogramDictionary[HISTOGRAM_LEADING_PROBNNMU]->Fill(leading_ProbNNmu);
-    this->histogramDictionary[HISTOGRAM_SUBLEADING_PROBNNMU]->Fill(subleading_ProbNNmu);
+    graphingManager.histogramDictionary[HISTOGRAM_LEADING_PROBNNMU]->Fill(leading_ProbNNmu);
+    graphingManager.histogramDictionary[HISTOGRAM_SUBLEADING_PROBNNMU]->Fill(subleading_ProbNNmu);
 
     // Rapidity
-    this->histogramDictionary[HISTOGRAM_LEADING_RAPIDITY]->Fill(leading_rapidity);
-    this->histogramDictionary[HISTOGRAM_SUBLEADING_RAPIDITY]->Fill(subleading_rapidity);
+    graphingManager.histogramDictionary[HISTOGRAM_LEADING_RAPIDITY]->Fill(leading_rapidity);
+    graphingManager.histogramDictionary[HISTOGRAM_SUBLEADING_RAPIDITY]->Fill(subleading_rapidity);
 
     // Sum PT
-    this->histogramDictionary[HISTOGRAM_SUM_PT]->Fill(total.Pt());
-    this->histogramDictionary[HISTOGRAM_Z_PT]->Fill(this->Z_PT);
+    graphingManager.histogramDictionary[HISTOGRAM_SUM_PT]->Fill(total.Pt());
+    graphingManager.histogramDictionary[HISTOGRAM_Z_PT]->Fill(this->Z_PT);
 
     // Sum Rapidity
-    this->histogramDictionary[HISTOGRAM_SUM_RAPIDITY]->Fill(total.Rapidity());
+    graphingManager.histogramDictionary[HISTOGRAM_SUM_RAPIDITY]->Fill(total.Rapidity());
 }
 
 void ZDecayAnalyser::Loop() {
@@ -160,9 +164,9 @@ void ZDecayAnalyser::Loop() {
 }
 
 void ZDecayAnalyser::Process() {
-    this->LoadConfig();
-    this->CreateHistograms();
+    graphingManager.LoadConfig();
+    graphingManager.CreateHistograms();
 
     this->Loop();
-    this->Draw();
+    graphingManager.Draw();
 }

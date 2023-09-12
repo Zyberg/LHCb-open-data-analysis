@@ -11,31 +11,6 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
-#include <TH1.h>
-#include <TLegend.h>
-
-struct HistogramConfig {
-    std::string name;
-    std::string title;
-    int nbinsx;
-    Double_t xlow;
-    Double_t xup;
-    EColor color;
-};
-
-struct StackConfig {
-    std::string name;
-    std::string title;
-    std::string xaxisTitle;
-    std::string yaxisTitle;
-};
-
-struct CanvasConfig {
-    std::string name;
-    std::string title;
-    std::vector<HistogramConfig> histograms;
-    StackConfig stack;
-};
 
 // Header file for the classes stored in the TTree if any.
 
@@ -462,15 +437,9 @@ public :
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
 
-   // CUSTOM PROPERTIES
-    std::vector<CanvasConfig> canvasConfigurations;
-    std::unordered_map<std::string, TH1F*> histogramDictionary;
-
-    virtual void LoadConfig();
+   // CUSTOM
    virtual void ProcessFill();
-    virtual void Process();
-    virtual void CreateHistograms();
-    virtual void Draw();
+   virtual void Process();
 };
 
 #endif
@@ -760,56 +729,5 @@ Int_t ZDecayAnalyser::Cut(Long64_t entry)
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
    return 1;
-}
-
-
-// CUSTOM Methods
-void ZDecayAnalyser::CreateHistograms()
-{
-    std::cout << "Creating histograms..." << std::endl;
-
-    for (const auto& canvas : canvasConfigurations) {
-        for (const auto& histogram : canvas.histograms) {
-            TH1F* hist = new TH1F(histogram.name.c_str(), histogram.title.c_str(), histogram.nbinsx, histogram.xlow, histogram.xup);
-            hist->SetLineColor(histogram.color);
-            histogramDictionary[histogram.name] = hist;
-
-            std::cout << "Histogram has been created: \"" << histogram.name << "\";" << std::endl;
-        }
-    }
-
-    std::cout << "Created all required histograms successfully!" << std::endl;
-}
-
-void ZDecayAnalyser::Draw()
-{
-    std::unordered_map<std::string, TCanvas*> canvases;
-    for (const auto& canvas : canvasConfigurations) {
-        canvases[canvas.name] = new TCanvas(canvas.name.c_str(), canvas.title.c_str(), 800, 600);
-
-        THStack* stack = new THStack(canvas.stack.name.c_str(), canvas.stack.title.c_str());
-        TLegend* legend = new TLegend(0.7, 0.7, 0.9, 0.9);
-
-        for (const auto& histogram : canvas.histograms) {
-            stack->Add(histogramDictionary[histogram.name]);
-
-            legend->AddEntry(histogramDictionary[histogram.name], histogram.title.c_str());
-        }
-
-        stack->Draw("nostack");
-        legend->Draw();
-
-        // Set axis labels
-        stack->GetXaxis()->SetTitle(canvas.stack.xaxisTitle.c_str());
-        stack->GetYaxis()->SetTitle(canvas.stack.yaxisTitle.c_str());
-    }
-
-    for (auto& pair : canvases) {
-        TCanvas* canvas = pair.second;
-
-        std::cout << pair.first << std::endl;
-
-        canvas->Draw();
-    }
 }
 #endif // #ifdef ZDecayAnalyser_cxx
