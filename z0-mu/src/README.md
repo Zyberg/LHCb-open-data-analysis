@@ -1,11 +1,5 @@
-## How to use _ZDecayAnalyser_
+## Overview
 
-Run the following commands in root terminal:
+To see different histograms that were graphed during the analysis, run `analyse.C` macro.
 
-```bash
-root [0] .L ZDecayAnalyser.C
-root [1] ZDecayAnalyser analyser
-root [2] analyser.Process()
-``` 
-
-All analysis happens in `ZDecayAnalyser.C`. Other files are used for utility functions.
+To see Cut Flow histogram, run `cutflow.C` macro.
