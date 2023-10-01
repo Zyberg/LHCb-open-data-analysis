@@ -19,8 +19,8 @@ Detailed description of the analysis and theoretical background can be found in 
 
 Additional workflow improvements:
 
-- [ ] Utilize _Snakemake_.
-- [ ] Extract cutflow and data preparation step out of charting code.
+- [x] Utilize _Snakemake_.
+- [ ] Extract cutflow and data preparation step out of charting code for all currently described variables.
 - [ ] Prepare config for _Kolmogorov–Smirnov test_ implementation.
 
 ## Data Sources
