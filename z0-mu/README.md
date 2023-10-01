@@ -14,7 +14,7 @@ Detailed description of the analysis and theoretical background can be found in 
 - [ ] Create a mass "cut flow" chart with overlapping cuts
 - [ ] Choose a reasonable selection and process all the data sources with it.
 
-- [ ] Fit Z mass to Gauss and Breit-Widgner line shapes.
+- [ ] Fit Z mass to Gauss and Breit-Wigner line shapes.
 - [ ] Try to compare results with [PDG](https://pdg.lbl.gov/)
 
 Additional workflow improvements:
