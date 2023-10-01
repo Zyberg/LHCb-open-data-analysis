@@ -46,12 +46,13 @@ histogram_ZMM_output_file_name = make_histogram_output_file_name('Z_MM')
 # ===================================================
 # RULES
 # ---------------------------------------------------
+# TODO: fix and test this rule in environment with cvfs
 rule run_davinci:
     input: davinci_input_file_name
     output: davinci_output_file_name
     run:
         if config["davinci"]["is_enabled"]:
-            shell("davinci {input} > {output}")
+            shell("lb-run Davinci/v45r8 gaudirun.py ../../Z_data_to_root.py {input}")
         else:
             shell("echo 'Skipping DaVinci Rule...'")
 
