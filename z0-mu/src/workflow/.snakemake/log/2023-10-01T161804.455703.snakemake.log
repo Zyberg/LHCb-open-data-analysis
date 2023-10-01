@@ -1,0 +1,3 @@
+NameError in file /home/zyberg/CERN/0REAL/z0-mu/src/workflow/Snakefile, line 78:
+name 'filename' is not defined
+  File "/home/zyberg/CERN/0REAL/z0-mu/src/workflow/Snakefile", line 78, in <module>

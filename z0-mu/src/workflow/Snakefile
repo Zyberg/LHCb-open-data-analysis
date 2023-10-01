@@ -1,0 +1,70 @@
+import os
+
+configfile: '../config/config.yaml'
+
+
+def make_davinci_source_file_name():
+    year, energy, direction, strippingNumber = config["davinci"]["source"]["year"], config["davinci"]["source"]["energy"], config["davinci"]["source"]["direction"], config["davinci"]["source"]["strippingNumber"]
+    
+    relative_path =  f"../../sources/SOURCE_LHCb_{year}_Beam{energy}GeV_VeloClosed_Mag{direction}_RealData_Reco14_Stripping{strippingNumber}_EW_DST.py"
+
+    return os.path.abspath(os.path.join(os.getcwd(), relative_path))
+
+def make_davinci_output_file_name():
+    year, direction = config["davinci"]["source"]["year"], config["davinci"]["source"]["direction"]
+
+    relative_path = f"../../data/{year}{direction}.root"
+
+    return os.path.abspath(os.path.join(os.getcwd(), relative_path))
+
+
+davinci_input_file_name = make_davinci_source_file_name()
+davinci_output_file_name = make_davinci_output_file_name()
+
+
+nbins = config["histogram"]["nbins"];
+histogram_from, histogram_to = config["histogram"]["ZMM"]["from"], config["histogram"]["ZMM"]["to"]
+
+
+def make_cutflow_output_file_name():
+    year, direction = config["davinci"]["source"]["year"], config["davinci"]["source"]["direction"]
+    relative_path = f"intermediate-data/after-cut/{year}{direction}Cut.root"
+
+    return os.path.abspath(os.path.join(os.getcwd(), relative_path))
+
+cutflow_output_file_name = make_cutflow_output_file_name()
+
+def make_histogram_output_file_name(histogramLabel):
+    relative_path = f"../results/{histogramLabel}.png"
+
+    return os.path.abspath(os.path.join(os.getcwd(), relative_path))
+
+histogram_ZMM_output_file_name = make_histogram_output_file_name('Z_MM')
+
+
+
+# ===================================================
+# RULES
+# ---------------------------------------------------
+rule run_davinci:
+    input: davinci_input_file_name
+    output: davinci_output_file_name
+    run:
+        if config["davinci"]["is_enabled"]:
+            shell("davinci {input} > {output}")
+        else:
+            shell("echo 'Skipping DaVinci Rule...'")
+
+            
+# Rule for applying cutflow
+rule apply_cutflow:
+    input: davinci_output_file_name
+    params: 25000
+    output: cutflow_output_file_name
+    shell: "cd scripts && root -q 'applycutflow.C(\"{input}\", {params}, \"{output}\")'"
+
+# Rule for charting
+rule draw_ZMM:
+    input: cutflow_output_file_name
+    output: histogram_ZMM_output_file_name
+    shell: "cd scripts && root -q 'drawZMM.C(\"{input}\", {nbins}, {histogram_from}, {histogram_to}, \"{output}\")'"

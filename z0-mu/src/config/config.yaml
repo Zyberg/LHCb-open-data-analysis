@@ -1,0 +1,17 @@
+davinci: 
+  is_enabled: False
+  source:
+    year: 2011
+    energy: 3500
+    direction: "Up"
+    strippingNumber: "21r1"
+    
+cutflow:
+
+
+histogram:
+  nbins: 100
+
+  ZMM:
+    from: 0
+    to: 140000
