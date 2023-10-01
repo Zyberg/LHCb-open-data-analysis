@@ -60,7 +60,7 @@ rule run_davinci:
 # Rule for applying cutflow
 rule apply_cutflow:
     input: davinci_output_file_name
-    params: 25000
+    params: config['cutflow']['muon_PT']
     output: cutflow_output_file_name
     shell: "cd scripts && root -q 'applycutflow.C(\"{input}\", {params}, \"{output}\")'"
 
