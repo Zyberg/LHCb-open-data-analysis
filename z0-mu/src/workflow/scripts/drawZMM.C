@@ -1,10 +1,16 @@
 #define GraphingManager_cxx
 
+#include <TROOT.h>
+#include <TChain.h>
+#include <TFile.h>
+#include <string>
+#include <iostream>
+
 #include "GraphingManager.h"
 
 inline const char HISTOGRAM_INVARIANT_MASS_SIMPLE_Z[] = "InvariantMassZ";
 
-void drawZMM(const string inputFileName, int nbins, double from, double to,
+void drawZMM(const std::string inputFileName, int nbins, double from, double to,
              const char *outputFileName) {
   // ======================================================
   // READ TREE

@@ -1,6 +1,9 @@
 #ifndef HISTOGRAM_CONFIG_H
 #define HISTOGRAM_CONFIG_H
 
+#include <Rtypes.h>
+#include <string>
+
 struct HistogramConfig {
   std::string name;
   std::string title;

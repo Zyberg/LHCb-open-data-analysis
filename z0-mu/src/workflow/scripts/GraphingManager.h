@@ -1,9 +1,13 @@
 #ifndef GraphingManager_h
 #define GraphingManager_h
 
-#include "HistogramConfig.h"
 #include <TH1.h>
 #include <TLegend.h>
+#include <TCanvas.h>
+#include <unordered_map>
+
+#include "HistogramConfig.h"
+
 
 class GraphingManager {
 public:
