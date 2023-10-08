@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 
-#include "GraphingManager.h"
+#include "utility/GraphingManager.h"
 
 inline const char HISTOGRAM_INVARIANT_MASS_SIMPLE_Z[] = "InvariantMassZ";
 
