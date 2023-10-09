@@ -9,9 +9,3 @@ davinci:
 cutflow:
   muon_PT: 25000
 
-histogram:
-  nbins: 100
-
-  ZMM:
-    from: 0
-    to: 140000

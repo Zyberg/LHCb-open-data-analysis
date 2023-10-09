@@ -23,5 +23,7 @@ HistogramBuilder::~HistogramBuilder() {
 
 void HistogramBuilder::FillExternalHistogram(const std::string& expression, TH1F* histogram) {
     std::cout << (expression + " >> " + histogram->GetName()).c_str() << std::endl;
+
+    // TODO: this doesn't seem to save to a histogram :(
     tree->Draw((expression + " >> " + histogram->GetName()).c_str());
 }
