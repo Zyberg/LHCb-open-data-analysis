@@ -7,6 +7,7 @@
 struct HistogramConfig {
   std::string name;
   std::string title;
+  std::string expression;
   int nbinsx;
   Double_t xlow;
   Double_t xup;
