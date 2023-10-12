@@ -1,6 +1,6 @@
 name: "canvas_invariant_mass"
 title: "Z Boson Invariant Mass Distribution"
-# TODO: should be taken from Snakefile config
+# TODO: should be fille from Snakefile config with an additional rule(?)
 outputFilename: "../../results/Z_MM.png" 
 
 histograms:
