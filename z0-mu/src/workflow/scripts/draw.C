@@ -12,6 +12,7 @@
 
 inline const char NAMECYCLE[] = "DecayTreeAfterCutflow";
 
+// TODO: pass only the config file name and store inputFileName inside the yaml
 void draw(const std::string inputFileName, const std::string configFileName) {
   // Read config
   YAMLConfigReader reader(configFileName);
@@ -33,7 +34,6 @@ void draw(const std::string inputFileName, const std::string configFileName) {
   HistogramBuilder builder(inputFileName, NAMECYCLE);
 
   for (const auto &histogram : config.histograms) {
-    std::cout << histogram.expression << "AAAA" << std::endl;
     builder.FillExternalHistogram(histogram.expression, graphingManager->histogramDictionary[histogram.name]);
   }
 

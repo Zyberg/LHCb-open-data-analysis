@@ -22,8 +22,20 @@ HistogramBuilder::~HistogramBuilder() {
 }
 
 void HistogramBuilder::FillExternalHistogram(const std::string& expression, TH1F* histogram) {
-    std::cout << (expression + " >> " + histogram->GetName()).c_str() << std::endl;
+    // Save current directory in order to go back later
+    TDirectory* currentDir = gDirectory;
 
-    // TODO: this doesn't seem to save to a histogram :(
-    tree->Draw((expression + " >> " + histogram->GetName()).c_str());
+    // Go to the histogram's directory
+    TDirectory* histDirectory = histogram->GetDirectory();
+    if (histDirectory) {
+        histDirectory->cd();
+    } else {
+        std::cerr << "Error: Histogram directory not found." << std::endl;
+    }
+
+    // Fill the histogram
+    tree->Draw((expression + " >> " + histogram->GetName()).c_str(), "", "goff");
+
+    // Return to the original directory
+    currentDir->cd();
 }
