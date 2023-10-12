@@ -1,0 +1,20 @@
+name: "canvas_invariant_mass"
+title: "Z Boson Invariant Mass Distribution"
+# TODO: should be taken from Snakefile config
+outputFilename: "../../results/Z_MM.png" 
+
+histograms:
+  - name: "InvariantMassZ"
+    title: "Simple energy calculation"
+    expression: "Z_MM"
+    nbinsx: 100
+    xlow: 35000.0
+    xup: 140000.0
+    # Using EColor
+    color: 600
+
+stack:
+  name: "Invariant_Mass_Stack"
+  title: "Z Boson Invariant Mass Distribution"
+  xaxisTitle: "Invariant Mass (MeV/c^2)"
+  yaxisTitle: "Frequency"

@@ -21,11 +21,6 @@ def make_davinci_output_file_name():
 davinci_input_file_name = make_davinci_source_file_name()
 davinci_output_file_name = make_davinci_output_file_name()
 
-
-nbins = config["histogram"]["nbins"];
-histogram_from, histogram_to = config["histogram"]["ZMM"]["from"], config["histogram"]["ZMM"]["to"]
-
-
 def make_cutflow_output_file_name():
     year, direction = config["davinci"]["source"]["year"], config["davinci"]["source"]["direction"]
     relative_path = f"intermediate-data/after-cut/{year}{direction}Cut.root"
@@ -41,7 +36,12 @@ def make_histogram_output_file_name(histogramLabel):
 
 histogram_ZMM_output_file_name = make_histogram_output_file_name('Z_MM')
 
+def make_histogram_config_file_name(histogramLabel):
+    relative_path = f"../config/{histogramLabel}.yaml"
 
+    return os.path.abspath(os.path.join(os.getcwd(), relative_path))
+
+histogram_ZMM_config = make_histogram_config_file_name('Z_MM')
 
 # ===================================================
 # RULES
@@ -68,4 +68,4 @@ rule apply_cutflow:
 rule draw_ZMM:
     input: cutflow_output_file_name
     output: histogram_ZMM_output_file_name
-    shell: "cd scripts && root -q 'drawZMM.C(\"{input}\", {nbins}, {histogram_from}, {histogram_to}, \"{output}\")'"
+    shell: "cd scripts && root -q 'draw.C(\"{input}\", \"{histogram_ZMM_config}\")'"
