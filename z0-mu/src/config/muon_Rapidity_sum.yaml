@@ -1,0 +1,28 @@
+name: "canvas_sum_Rapidity"
+title: "Lepton Sum Rapidity Distribution"
+outputFilename: "../../results/muon_Rapidity_sum.png" 
+
+
+histograms:
+  - name: "SumRapidity"
+    title: "Sum Rapidity"
+    # TODO: somehow use TLorentz vector in expressions
+    expression: "./proxy/rapiditySum.C"
+    nbinsx: 100
+    xlow: 1.0
+    xup: 5.5
+    color: 416   # kGreen
+
+  - name: "ZRapidity"
+    title: "Z Rapidity"
+    expression: "Z_Rapidity"
+    nbinsx: 100
+    xlow: -1000.0
+    xup: 120000.0
+    color: 600   # kBlue
+
+stack:
+  name: "Sum_Rapidity_stack"
+  title: "Lepton Sum Rapidity"
+  xaxisTitle: "Rapidity"
+  yaxisTitle: "Frequency"

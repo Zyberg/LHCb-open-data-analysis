@@ -1,0 +1,27 @@
+name: "canvas_sum_PT"
+title: "Lepton Sum PT Distribution"
+outputFilename: "../../results/muon_PT_sum.png" 
+
+histograms:
+  - name: "SumPT"
+    title: "Sum PT"
+    # TODO: somehow use TLorentz vector in expressions
+    expression: "muon1_PT + muon2_PT"
+    nbinsx: 100
+    xlow: -1000.0
+    xup: 120000.0
+    color: 416   # kGreen
+    
+  - name: "ZPT"
+    title: "Z PT"
+    expression: "Z_PT"
+    nbinsx: 100
+    xlow: -1000.0
+    xup: 120000.0
+    color: 600   # kBlue
+
+stack:
+  name: "Sum_PT_stack"
+  title: "Lepton Sum PT"
+  xaxisTitle: "PT"
+  yaxisTitle: "Frequency"

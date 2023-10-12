@@ -34,27 +34,24 @@ def make_histogram_output_file_name(histogramLabel):
 
     return os.path.abspath(os.path.join(os.getcwd(), relative_path))
 
-histogram_ZMM_output_file_name = make_histogram_output_file_name('Z_MM')
-
 def make_histogram_config_file_name(histogramLabel):
     relative_path = f"../config/{histogramLabel}.yaml"
 
     return os.path.abspath(os.path.join(os.getcwd(), relative_path))
 
-histogram_ZMM_config = make_histogram_config_file_name('Z_MM')
 
 # ===================================================
 # RULES
 # ---------------------------------------------------
 # TODO: fix and test this rule in environment with cvfs
-rule run_davinci:
-    input: davinci_input_file_name
-    output: davinci_output_file_name
-    run:
-        if config["davinci"]["is_enabled"]:
-            shell("lb-run Davinci/v45r8 gaudirun.py ../../Z_data_to_root.py {input}")
-        else:
-            shell("echo 'Skipping DaVinci Rule...'")
+# rule run_davinci:
+#     input: davinci_input_file_name
+#     output: davinci_output_file_name
+#     run:
+#         if config["davinci"]["is_enabled"]:
+#             shell("lb-run Davinci/v45r8 gaudirun.py ../../Z_data_to_root.py {input}")
+#         else:
+#             shell("echo 'Skipping DaVinci Rule...'")
 
             
 # Rule for applying cutflow
@@ -64,8 +61,18 @@ rule apply_cutflow:
     output: cutflow_output_file_name
     shell: "cd scripts && root -q 'applycutflow.C(\"{input}\", {params}, \"{output}\")'"
 
-# Rule for charting
-rule draw_ZMM:
-    input: cutflow_output_file_name
-    output: histogram_ZMM_output_file_name
-    shell: "cd scripts && root -q 'draw.C(\"{input}\", \"{histogram_ZMM_config}\")'"
+# Rules for charting
+chart_configs_tags = ['Z_MM', 'muon_PT', 'muon_ProbNNmu', 'muon_Rapidity', 'muon_Rapidity_sum', 'muon_PT_sum']
+
+wildcard_constraints:
+    config_charts = "|".join(chart_configs_tags)
+
+rule draw_chart:
+    input: 
+        config_chart = make_histogram_config_file_name("{config_charts}")
+    output:
+        chart = make_histogram_output_file_name("{config_charts}")
+    shell: "cd scripts && root -q 'draw.C(\"{cutflow_output_file_name}\", \"{input.config_chart}\")'"
+
+rule run_all:
+    input: expand(make_histogram_output_file_name("{config}"), config=chart_configs_tags)

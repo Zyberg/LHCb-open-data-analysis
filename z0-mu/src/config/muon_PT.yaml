@@ -1,0 +1,26 @@
+name: "canvas_muon_pt"
+title: "Leading and Subleading Muon PT"
+outputFilename: "../../results/muon_PT.png" 
+
+histograms:
+  - name: "LeadingPT"
+    title: "Leading Muon PT"
+    expression: "max(muon1_PT, muon2_PT)"
+    nbinsx: 100
+    xlow: 8000.0
+    xup: 130000.0
+    color: 416   # kGreen
+    
+  - name: "SubleadingPT"
+    title: "Subleading Muon PT"
+    expression: "min(muon1_PT, muon2_PT)"
+    nbinsx: 100
+    xlow: 0.0
+    xup: 130000.0
+    color: 632   # kRed
+
+stack:
+  name: "PT_Stack"
+  title: "Muon PT Distribution"
+  xaxisTitle: "PT"
+  yaxisTitle: "Frequency"

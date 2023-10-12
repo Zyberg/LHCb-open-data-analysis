@@ -1,0 +1,26 @@
+name: "canvas_ProbNNmu"
+title: "Muon Bayesian Posteriori Probability Distribution"
+outputFilename: "../../results/muon_ProbNNmu.png" 
+
+histograms:
+  - name: "ProbNNmu_Leading"
+    title: "ProbNNmu Leading"
+    expression: "muon1_PT > muon2_PT ? muon1_ProbNNmu : muon2_ProbNNmu"
+    nbinsx: 100
+    xlow: 0.0
+    xup: 1.0
+    color: 416   # kGreen
+    
+  - name: "ProbNNmu_Subleading"
+    title: "ProbNNmu Subleading"
+    expression: "muon1_PT > muon2_PT ? muon2_ProbNNmu : muon1_ProbNNmu"
+    nbinsx: 100
+    xlow: 0.0
+    xup: 1.0
+    color: 600   # kBlue
+
+stack:
+  name: "ProbNNmu_stack"
+  title: "Muon Bayesian Posteriori Probability Distribution"
+  xaxisTitle: "ProbNNmu"
+  yaxisTitle: "Frequency"
