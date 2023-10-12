@@ -6,7 +6,7 @@ histograms:
   - name: "SumPT"
     title: "Sum PT"
     # TODO: somehow use TLorentz vector in expressions
-    expression: "muon1_PT + muon2_PT"
+    expression: "muon_sum_LorentzVector.Pt()"
     nbinsx: 100
     xlow: -1000.0
     xup: 120000.0
