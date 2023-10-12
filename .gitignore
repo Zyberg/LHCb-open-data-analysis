@@ -1,1 +1,3 @@
 .idea/*
+z0-mu/**/.snakemake
+z0-mu/**/.snakemake/**

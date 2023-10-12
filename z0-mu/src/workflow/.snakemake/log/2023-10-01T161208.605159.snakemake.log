@@ -1,4 +1,0 @@
-NameError in file /home/zyberg/CERN/0REAL/z0-mu/src/workflow/Snakefile, line 30:
-name 'year' is not defined
-  File "/home/zyberg/CERN/0REAL/z0-mu/src/workflow/Snakefile", line 34, in <module>
-  File "/home/zyberg/CERN/0REAL/z0-mu/src/workflow/Snakefile", line 30, in make_cutflow_output_file_name

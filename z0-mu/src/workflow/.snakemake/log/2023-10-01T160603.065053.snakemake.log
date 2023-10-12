@@ -1,6 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule apply_cutflow in file /home/zyberg/CERN/0REAL/z0-mu/src/workflow/Snakefile, line 32:
-Missing input files for rule apply_cutflow:
-    output: intermediate-data/after-cut/2011UpCut.root
-    affected files:
-        ../../../data/2011Up.root
