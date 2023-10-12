@@ -6,20 +6,12 @@ outputFilename: "../../results/muon_Rapidity_sum.png"
 histograms:
   - name: "SumRapidity"
     title: "Sum Rapidity"
-    # TODO: somehow use TLorentz vector in expressions
-    expression: "./proxy/rapiditySum.C"
+    expression: "muon_sum_LorentzVector.Rapidity()"
     nbinsx: 100
     xlow: 1.0
     xup: 5.5
     color: 416   # kGreen
 
-  - name: "ZRapidity"
-    title: "Z Rapidity"
-    expression: "Z_Rapidity"
-    nbinsx: 100
-    xlow: -1000.0
-    xup: 120000.0
-    color: 600   # kBlue
 
 stack:
   name: "Sum_Rapidity_stack"

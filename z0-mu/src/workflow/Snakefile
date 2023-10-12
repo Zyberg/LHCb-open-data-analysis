@@ -21,13 +21,14 @@ def make_davinci_output_file_name():
 davinci_input_file_name = make_davinci_source_file_name()
 davinci_output_file_name = make_davinci_output_file_name()
 
-def make_cutflow_output_file_name():
+def make_root_processing_output_file_name(append):
     year, direction = config["davinci"]["source"]["year"], config["davinci"]["source"]["direction"]
-    relative_path = f"intermediate-data/after-cut/{year}{direction}Cut.root"
+    relative_path = f"intermediate-data/after-cut/{year}{direction}{append}.root"
 
     return os.path.abspath(os.path.join(os.getcwd(), relative_path))
 
-cutflow_output_file_name = make_cutflow_output_file_name()
+cutflow_output_file_name = make_root_processing_output_file_name('Cut')
+processing_root_output_file_name = make_root_processing_output_file_name('FinalProcessing')
 
 def make_histogram_output_file_name(histogramLabel):
     relative_path = f"../results/{histogramLabel}.png"
@@ -44,14 +45,14 @@ def make_histogram_config_file_name(histogramLabel):
 # RULES
 # ---------------------------------------------------
 # TODO: fix and test this rule in environment with cvfs
-# rule run_davinci:
-#     input: davinci_input_file_name
-#     output: davinci_output_file_name
-#     run:
-#         if config["davinci"]["is_enabled"]:
-#             shell("lb-run Davinci/v45r8 gaudirun.py ../../Z_data_to_root.py {input}")
-#         else:
-#             shell("echo 'Skipping DaVinci Rule...'")
+rule run_davinci:
+    input: davinci_input_file_name
+    output: davinci_output_file_name
+    run:
+        if config["davinci"]["is_enabled"]:
+            shell("lb-run Davinci/v45r8 gaudirun.py ../../Z_data_to_root.py {input}")
+        else:
+            shell("echo 'Skipping DaVinci Rule...'")
 
             
 # Rule for applying cutflow
@@ -60,6 +61,11 @@ rule apply_cutflow:
     params: config['cutflow']['muon_PT']
     output: cutflow_output_file_name
     shell: "cd scripts && root -q 'applycutflow.C(\"{input}\", {params}, \"{output}\")'"
+
+rule append_tlorenz_vector:
+    input: cutflow_output_file_name
+    output: processing_root_output_file_name
+    shell: "cd scripts && root -q 'appendTLorentz.C(\"{input}\", \"{output}\")'"
 
 # Rules for charting
 chart_configs_tags = ['Z_MM', 'muon_PT', 'muon_ProbNNmu', 'muon_Rapidity', 'muon_Rapidity_sum', 'muon_PT_sum']
@@ -72,7 +78,7 @@ rule draw_chart:
         config_chart = make_histogram_config_file_name("{config_charts}")
     output:
         chart = make_histogram_output_file_name("{config_charts}")
-    shell: "cd scripts && root -q 'draw.C(\"{cutflow_output_file_name}\", \"{input.config_chart}\")'"
+    shell: "cd scripts && root -q 'draw.C(\"{processing_root_output_file_name}\", \"{input.config_chart}\")'"
 
 rule run_all:
     input: expand(make_histogram_output_file_name("{config}"), config=chart_configs_tags)

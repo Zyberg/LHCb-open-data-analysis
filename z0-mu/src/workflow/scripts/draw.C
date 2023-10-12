@@ -10,7 +10,7 @@
 #include "utility/HistogramBuilder.C"
 #include "utility/YAMLConfigReader.C"
 
-inline const char NAMECYCLE[] = "DecayTreeAfterCutflow";
+inline const char NAMECYCLE[] = "DecayTreeAfterProcessing";
 
 // TODO: pass only the config file name and store inputFileName inside the yaml
 void draw(const std::string inputFileName, const std::string configFileName) {

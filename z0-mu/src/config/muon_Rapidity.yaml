@@ -6,8 +6,7 @@ outputFilename: "../../results/muon_Rapidity.png"
 histograms:
   - name: "LeadingRapidity"
     title: "Rapidity Leading"
-    # TODO: _Rapidity doesn't currently exist
-    expression: "muon1_PT > muon2_PT ? muon1_Rapidity : muon2_Rapidity"
+    expression: "muon1_PT > muon2_PT ? muon1_LorentzVector.Rapidity() : muon2_LorentzVector.Rapidity()"
     nbinsx: 100
     xlow: 1.0
     xup: 5.5
@@ -15,7 +14,7 @@ histograms:
     
   - name: "SubleadingRapidity"
     title: "Rapidity Subleading"
-    expression: "muon1_PT > muon2_PT ? muon2_Rapidity : muon1_Rapidity"
+    expression: "muon1_PT > muon2_PT ? muon2_LorentzVector.Rapidity() : muon1_LorentzVector.Rapidity()"
     nbinsx: 100
     xlow: 1.0
     xup: 5.5
