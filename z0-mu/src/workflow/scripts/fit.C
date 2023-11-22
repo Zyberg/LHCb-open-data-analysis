@@ -54,6 +54,7 @@ void fit(const std::string inputFileName, const std::string configFileNameHistog
     for (const auto &fitConfig : fitsConfig) {
         TF1* fitFunc;
 
+        // TODO: extract this mapping for reusability
         if (fitConfig.name == "breitWigner") {
             fitFunc = new TF1(fitConfig.name.c_str(), "breitwigner", histogramConfig.xlow, histogramConfig.xup);
 
