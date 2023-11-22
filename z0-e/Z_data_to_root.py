@@ -3,23 +3,23 @@
 from Configurables import DaVinci
 from Configurables import LoKi__HDRFilter
 stripFilter = LoKi__HDRFilter('StripFilter',
-                              Code = "HLT_PASS('StrippingZ02MuMuLineDecision')",
+                              Code = "HLT_PASS('StrippingZ02eeLineDecision')",
                               Location = '/Event/Strip/Phys/DecReports')  
 
 from Configurables import DecayTreeTuple, TupleToolDecay
 mytuple = DecayTreeTuple("Tuple")
-mytuple.Decay = "Z0 -> ^mu+ ^mu-" 
+mytuple.Decay = "Z0 -> e+ e-" 
 mytuple.Inputs = [
-    '/Event/EW/Phys/Z02MuMuLine/Particles'
+    '/Event/EW/Phys/Z02eeLine/Particles'
     ]
 mytuple.Branches = ({
-    'Z'          : 'Z0 -> mu+ mu-',
-    'muon1'      : 'Z0 -> ^mu+ mu-',
-    'muon2'      : 'Z0 -> mu+ ^mu-'
+    'Z'          : 'Z0 -> e+ e-',
+    'electron1'      : 'Z0 -> ^e+ e-',
+    'electron2'      : 'Z0 -> e+ ^e-'
 })
-mytuple.addTool( TupleToolDecay, name = "muon1" )               
-mytuple.addTool( TupleToolDecay, name = "muon2" )
-mytuple.ToolList += [
+mytuple.addTool( TupleToolDecay, name = "electron1" )               
+mytuple.addTool( TupleToolDecay, name = "electron2" )
+mytuple.ToolList +=  [
     "TupleToolKinematic",
     "TupleToolPid",
     "TupleToolANNPID",
@@ -35,7 +35,7 @@ DaVinci().Simulation   = False
 DaVinci().WriteFSR = True
 DaVinci().InputType = 'DST'
 DaVinci().PrintFreq           = 1000      
-DaVinci().DataType = "2012"    
+DaVinci().DataType = "2011"    
 DaVinci().DDDBtag = 'dddb-20130929-1' 
 DaVinci().CondDBtag = 'cond-20141107' 
 DaVinci().Lumi = False
