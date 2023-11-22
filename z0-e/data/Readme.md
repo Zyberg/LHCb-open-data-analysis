@@ -1,0 +1,52 @@
+# Available Data
+
+This directory is still Work-in-Progress. Currently the data holds only these attributes:
+
+| Variable               |
+|------------------------|
+| Z_ENDVERTEX_X          |
+| Z_ENDVERTEX_Y          |
+| Z_ENDVERTEX_Z          |
+| Z_ENDVERTEX_XERR       |
+| Z_ENDVERTEX_YERR       |
+| Z_ENDVERTEX_ZERR       |
+| Z_ENDVERTEX_CHI2       |
+| Z_ENDVERTEX_NDOF       |
+| Z_ENDVERTEX_COV_       |
+| Z_OWNPV_X              |
+| Z_OWNPV_Y              |
+| Z_OWNPV_Z              |
+| Z_OWNPV_XERR           |
+| Z_OWNPV_YERR           |
+| Z_OWNPV_ZERR           |
+| Z_OWNPV_CHI2           |
+| Z_OWNPV_NDOF           |
+| Z_OWNPV_COV_           |
+| Z_IP_OWNPV             |
+| Z_IPCHI2_OWNPV         |
+| Z_FD_OWNPV             |
+| Z_FDCHI2_OWNPV         |
+| Z_DIRA_OWNPV           |
+| Z_P                    |
+| Z_PT                   |
+| Z_PE                   |
+| Z_PX                   |
+| Z_PY                   |
+| Z_PZ                   |
+| Z_MM                   |
+| Z_MMERR                |
+| Z_M                    |
+| Z_ID                   |
+| nCandidate             |
+| totCandidates          |
+| EventInSequence        |
+| runNumber              |
+| eventNumber            |
+| BCID                   |
+| BCType                 |
+| OdinTCK                |
+| L0DUTCK                |
+| HLT1TCK                |
+| HLT2TCK                |
+| GpsTime                |
+| Polarity               |
