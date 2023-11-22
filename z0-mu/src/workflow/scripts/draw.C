@@ -27,5 +27,6 @@ void draw(const std::string inputFileName, const std::string configFileName) {
   }
 
   // Save images of canvases
+  graphingManager->SetUpCanvases();
   graphingManager->Print();
 }

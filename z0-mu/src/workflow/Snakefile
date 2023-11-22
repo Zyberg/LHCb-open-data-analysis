@@ -45,6 +45,16 @@ def make_histogram_config_file_name(histogramLabel):
 
     return os.path.abspath(os.path.join(os.getcwd(), relative_path))
 
+def make_fit_output_file_name(fitLabel):
+    relative_path = f"../results/fit/{fitLabel}.png"
+
+    return os.path.abspath(os.path.join(os.getcwd(), relative_path))
+
+def make_fit_config_file_name(fitLabel):
+    relative_path = f"../config/fit/{fitLabel}.yaml"
+
+    return os.path.abspath(os.path.join(os.getcwd(), relative_path))
+
 
 # ===================================================
 # RULES
@@ -95,5 +105,16 @@ rule draw_chart:
         chart = make_histogram_chart_output_file_name("{config_histogram}")
     shell: "cd scripts && root -q 'draw.C(\"{input.root_file_name}\", \"{input.config_chart}\")'"
 
+rule draw_Z_MM_fit:
+    input:
+        config_chart = make_histogram_config_file_name("Z_MM"),
+        config_fit = make_fit_config_file_name("Z_MM"),
+        root_file_name = make_histogram_output_file_name("Z_MM")
+    output:
+        chart = make_fit_output_file_name("Z_MM")
+    shell: "cd scripts && root -q 'fit.C(\"{input.root_file_name}\", \"{input.config_chart}\", \"{input.config_fit}\")'"
+
 rule run_all:
-    input: expand(make_histogram_chart_output_file_name("{config}"), config=histogram_configs_tags)
+    input:
+        charts = expand(make_histogram_chart_output_file_name("{config}"), config=histogram_configs_tags),
+        fits = make_fit_output_file_name("Z_MM")

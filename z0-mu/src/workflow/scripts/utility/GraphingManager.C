@@ -33,10 +33,9 @@ void GraphingManager::CreateHistograms() {
   std::cout << "Created all required histograms successfully!" << std::endl;
 }
 
-std::unordered_map<std::string, TCanvas *> GraphingManager::SetUpCanvases() {
-  std::unordered_map<std::string, TCanvas *> canvases;
+void GraphingManager::SetUpCanvases() {
   for (const auto &canvas : canvasConfigurations) {
-    canvases[canvas.name] =
+    this->canvases[canvas.name] =
         new TCanvas(canvas.name.c_str(), canvas.title.c_str(), 800, 600);
 
     THStack *stack =
@@ -57,8 +56,6 @@ std::unordered_map<std::string, TCanvas *> GraphingManager::SetUpCanvases() {
     stack->GetXaxis()->SetTitle(canvas.stack.xaxisTitle.c_str());
     stack->GetYaxis()->SetTitle(canvas.stack.yaxisTitle.c_str());
   }
-
-  return canvases;
 }
 
 void GraphingManager::Fill(std::string histogramName, TH1F* histogramSource) {
@@ -66,9 +63,7 @@ void GraphingManager::Fill(std::string histogramName, TH1F* histogramSource) {
 }
 
 void GraphingManager::Draw() {
-  auto canvases = this->SetUpCanvases();
-
-  for (auto &pair : canvases) {
+  for (auto &pair : this->canvases) {
     TCanvas *canvas = pair.second;
 
     std::cout << pair.first << std::endl;
@@ -78,11 +73,19 @@ void GraphingManager::Draw() {
 }
 
 void GraphingManager::Print() {
-  auto canvases = this->SetUpCanvases();
-
   for (const auto &canvas : canvasConfigurations) {
     std::cout << canvas.name << std::endl;
 
-    canvases[canvas.name]->Print(canvas.outputChartFilename.c_str());
+    this->canvases[canvas.name]->Print(canvas.outputChartFilename.c_str());
+  }
+}
+
+void GraphingManager::Print(const std::string outputFilename) {
+  for (const auto &canvas : canvasConfigurations) {
+    std::cout << canvas.name << std::endl;
+
+    this->canvases[canvas.name]->Print(outputFilename.c_str());
+
+    this->canvases[canvas.name]->ls();
   }
 }
