@@ -1,6 +1,7 @@
 name: "canvas_rapidity"
 title: "Muon Rapidity Distribution"
-outputFilename: "../../results/muon_Rapidity.png" 
+outputFilename: "../intermediate-data/histograms/muon_Rapidity.root" 
+outputChartFilename: "../../results/muon_Rapidity.png"
 
 
 histograms:

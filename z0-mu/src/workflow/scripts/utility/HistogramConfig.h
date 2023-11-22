@@ -25,6 +25,7 @@ struct CanvasConfig {
   std::string name;
   std::string title;
   std::string outputFilename;
+  std::string outputChartFilename;
   std::vector<HistogramConfig> histograms;
   StackConfig stack;
 };

@@ -1,6 +1,8 @@
 name: "canvas_sum_PT"
 title: "Lepton Sum PT Distribution"
-outputFilename: "../../results/muon_PT_sum.png" 
+outputFilename: "../intermediate-data/histograms/muon_PT_sum.root" 
+outputChartFilename: "../../results/muon_PT_sum.png"
+
 
 histograms:
   - name: "SumPT"

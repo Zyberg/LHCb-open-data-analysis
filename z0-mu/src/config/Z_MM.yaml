@@ -1,7 +1,9 @@
 name: "canvas_invariant_mass"
 title: "Z Boson Invariant Mass Distribution"
 # TODO: should be fille from Snakefile config with an additional rule(?)
-outputFilename: "../../results/Z_MM.png" 
+outputFilename: "../intermediate-data/histograms/Z_MM.root"
+outputChartFilename: "../../results/Z_MM.png"
+
 
 histograms:
   - name: "InvariantMassZ"

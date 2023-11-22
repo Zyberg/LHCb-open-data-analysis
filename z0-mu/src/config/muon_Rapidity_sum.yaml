@@ -1,6 +1,7 @@
 name: "canvas_sum_Rapidity"
 title: "Lepton Sum Rapidity Distribution"
-outputFilename: "../../results/muon_Rapidity_sum.png" 
+outputFilename: "../intermediate-data/histograms/muon_Rapidity_sum.root" 
+outputChartFilename: "../../results/muon_Rapidity_sum.png"
 
 
 histograms:

@@ -28,6 +28,7 @@ void YAMLConfigReader::parseYAML(const YAML::Node& node) {
     config.name = node["name"].as<std::string>();
     config.title = node["title"].as<std::string>();
     config.outputFilename = node["outputFilename"].as<std::string>();
+    config.outputChartFilename = node["outputChartFilename"].as<std::string>();
 
     // Read HistogramConfigs
     const YAML::Node& histogramsNode = node["histograms"];

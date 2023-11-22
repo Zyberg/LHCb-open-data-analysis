@@ -1,42 +1,31 @@
-#define GraphingManager_cxx
-
-#include <TROOT.h>
-#include <TChain.h>
 #include <TFile.h>
+#include <TH1.h>
+#include <THStack.h>
+#include <TList.h>
 #include <string>
-#include <iostream>
 
-#include "utility/GraphingManager.h"
-#include "utility/HistogramBuilder.C"
-#include "utility/YAMLConfigReader.C"
+#include "utility/GraphingManager.C"
+#include "utility/HistogramConfig.h"
+#include "utility/util.h"
 
-inline const char NAMECYCLE[] = "DecayTreeAfterProcessing";
-
-// TODO: pass only the config file name and store inputFileName inside the yaml
 void draw(const std::string inputFileName, const std::string configFileName) {
-  // Read config
-  YAMLConfigReader reader(configFileName);
+  auto config = readHistogramConfig(configFileName);
+  
+  auto graphingManager = new GraphingManager({ config });
 
-  if (!reader.isValid()) {
-    std::cerr << "Error: " << reader.getError() << std::endl;
-    return;
+  auto file = new TFile(config.outputFilename.c_str(), "READ");
+
+  if (!file || file->IsZombie()) {
+    std::cerr << "Error: Could not open file " << config.outputFilename << std::endl;
   }
-
-  auto config = reader.getConfig();
-  
-  // Initialize histograms
-  auto graphingManager = new GraphingManager();
-
-  graphingManager->LoadConfig({ config });
-  graphingManager->CreateHistograms();
-  
-  // Fill with data
-  HistogramBuilder builder(inputFileName, NAMECYCLE);
 
   for (const auto &histogram : config.histograms) {
-    builder.FillExternalHistogram(histogram.expression, graphingManager->histogramDictionary[histogram.name]);
+    std::cout << histogram.name << std::endl;
+    auto h = (TH1F*)file->Get(histogram.name.c_str());
+
+    graphingManager->Fill(histogram.name, h);
   }
 
-  // Save to file
+  // Save images of canvases
   graphingManager->Print();
 }

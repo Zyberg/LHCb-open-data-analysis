@@ -1,6 +1,8 @@
 name: "canvas_ProbNNmu"
 title: "Muon Bayesian Posteriori Probability Distribution"
-outputFilename: "../../results/muon_ProbNNmu.png" 
+outputFilename: "../intermediate-data/histograms/muon_ProbNNmu.root" 
+outputChartFilename: "../../results/muon_ProbNNmu.png"
+
 
 histograms:
   - name: "ProbNNmu_Leading"
