@@ -1,4 +1,4 @@
-# Available data
+# Available Data
 
 All of the data in this folder has been generated using Davinci.
 
