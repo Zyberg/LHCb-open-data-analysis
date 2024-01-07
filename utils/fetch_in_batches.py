@@ -34,7 +34,7 @@ def create_batches(input_file, output_dir):
 def create_batch_file(output_dir, batch_num, batch_data):
     file_content = f"from Configurables import DaVinci\n\nDaVinci().Input += [\n"
     for item in batch_data:
-        file_content += f"\t{item},\n"
+        file_content += f"\t{item}\n"
     file_content += "]\n"
 
     filename = os.path.join(output_dir, f"batch_{batch_num}.py")
