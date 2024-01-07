@@ -46,7 +46,7 @@ def run_batches(batch_dir):
         if filename.startswith("batch_") and filename.endswith(".py"):
             batch_file_path = os.path.join(batch_dir, filename)
 
-            command = f"lb-run Davinci/v45r8 gaudirun.py Z_data_to_root.py {batch_file_path}"
+            command = f"lb-run Davinci/v45r8 gaudirun.py fetch_Zmumu.py {batch_file_path}"
             run_command(command)
 
             # Edit fetch_Zmumu.py after running the batch
