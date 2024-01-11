@@ -27,8 +27,8 @@ mytuple.ToolList += [
 ]
 
 DaVinci().EventPreFilters = [stripFilter]
-DaVinci().HistogramFile = 'batch_2_histos.root'
-DaVinci().TupleFile = 'batch_2.root'
+# DaVinci().HistogramFile = 'batch_2_histos.root'
+# DaVinci().TupleFile = 'batch_2.root'
 DaVinci().EvtMax = -1
 DaVinci().Simulation = False
 DaVinci().WriteFSR = True
