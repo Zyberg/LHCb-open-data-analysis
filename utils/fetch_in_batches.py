@@ -49,6 +49,8 @@ def run_batches(batch_dir):
             command = f"lb-run Davinci/v45r8 gaudirun.py fetch_Zmumu.py {batch_file_path}"
             run_command(command)
 
+            print("ONE BATCH FINISHED")
+
             # Edit fetch_Zmumu.py after running the batch
             edit_fetch_Zmumu(filename)
 

@@ -14,7 +14,7 @@ if [ ! -d "$DIRECTORY" ]; then
 fi
 
 # Define the template content for the Python script
-TEMPLATE="DaVinci().HistogramFile = 'batch_%s_histos.root'\nDaVinci().TupleFile = 'batch_%s.root'"
+TEMPLATE="from Configurables import DaVinci\nDaVinci().HistogramFile = 'batch_%s_histos.root'\nDaVinci().TupleFile = 'batch_%s.root'"
 
 # Loop through each file in the directory
 for FILENAME in "$DIRECTORY"/*; do
