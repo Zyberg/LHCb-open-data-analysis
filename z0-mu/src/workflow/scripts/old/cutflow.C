@@ -240,11 +240,14 @@ void plotCutFlowHistogram(TTree *tree) {
   cutFlowHistogram->SetTitle("Cut Flow Histogram");
 
   cutFlowHistogram->Draw("vbar");
-  canvas->Draw();
+
+  auto fileOut = new TFile("./cutflow.root", "RECREATE");
+  cutFlowHistogram->Write();
+  fileOut->Close();
 }
 
 void cutflow() {
-  std::string fileName = "../data/2011Up.root";
+  std::string fileName = "../../../../data/2011Up.root";
 
   // ======================================================
   // READ TREE

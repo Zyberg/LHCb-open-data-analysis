@@ -43,16 +43,35 @@ void applycutflow(const string inputFileName, double pTThreshold,
   TTree *outputTree = inputTree->CloneTree(0);
 
   // Apply cutflow based on pT threshold
-  Double_t muon1_PT, muon2_PT;
+  Double_t 
+    muon1_PT, muon1_ProbNNmu, muon1_ProbNNpi, muon1_ProbNNe, muon1_ProbNNp,
+    muon2_PT, muon2_ProbNNmu, muon2_ProbNNpi, muon2_ProbNNe, muon2_ProbNNp;
+
   inputTree->SetBranchAddress("muon1_PT", &muon1_PT);
+  inputTree->SetBranchAddress("muon1_ProbNNmu", &muon1_ProbNNmu);
+  inputTree->SetBranchAddress("muon1_ProbNNpi", &muon1_ProbNNpi);
+  inputTree->SetBranchAddress("muon1_ProbNNe", &muon1_ProbNNe);
+  inputTree->SetBranchAddress("muon1_ProbNNp", &muon1_ProbNNp);
+
   inputTree->SetBranchAddress("muon2_PT", &muon2_PT);
+  inputTree->SetBranchAddress("muon2_ProbNNmu", &muon2_ProbNNmu);
+  inputTree->SetBranchAddress("muon2_ProbNNpi", &muon2_ProbNNpi);
+  inputTree->SetBranchAddress("muon2_ProbNNe", &muon2_ProbNNe);
+  inputTree->SetBranchAddress("muon2_ProbNNp", &muon2_ProbNNp);
 
   int nEntries = inputTree->GetEntries();
   for (int i = 0; i < nEntries; i++) {
     inputTree->GetEntry(i);
 
     // PT cut
-    if (muon1_PT >= pTThreshold && muon2_PT >= pTThreshold)
+    // if (muon1_PT >= pTThreshold && muon2_PT >= pTThreshold && 
+    if (
+      (muon1_PT >= pTThreshold && muon2_PT >= pTThreshold) &&
+      // (muon1_ProbNNmu >= 0.5 && muon2_ProbNNmu >= 0.5) &&
+      (muon1_ProbNNpi < 0.1 && muon2_ProbNNpi < 0.1) && 
+      (muon1_ProbNNe < 0.1 && muon2_ProbNNe < 0.1) &&
+      (muon1_ProbNNp < 0.1 && muon2_ProbNNp < 0.1)
+    )
       outputTree->Fill();
   }
 

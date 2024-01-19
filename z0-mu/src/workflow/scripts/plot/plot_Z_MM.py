@@ -1,6 +1,5 @@
 import mplhep as hep
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import uproot
 from scipy.optimize import curve_fit
@@ -19,9 +18,15 @@ with uproot.open("../../intermediate-data/histograms/Z_MM.root") as file:
     err = file['InvariantMassZ'].errors()
 
 
+
+
+
     bins = np.array(bins)/1000
     center = (bins[:-1] + bins[1:]) / 2
     width = bins[1] - bins[0]
+
+    maxind = np.argmax(hist)
+    print(center[maxind])
 
     normalization_factor = np.trapz(center, hist)  # area under the curve
 
@@ -32,6 +37,8 @@ with uproot.open("../../intermediate-data/histograms/Z_MM.root") as file:
 
     x = np.linspace(40, 140, num=250)
 
+    maxind = np.argmax(lorentzian(x, a, x0)*(normalization_factor))
+    print(x[maxind])
     ax.plot(x, lorentzian(x, a, x0)*(normalization_factor),
            color='crimson', label='Breit-Wigner Tinkinimas', linestyle='dashed', marker='', linewidth=2)
 
@@ -45,7 +52,7 @@ with uproot.open("../../intermediate-data/histograms/Z_MM.root") as file:
         label="Duomenys"
     )
 
-    ax.set_xlabel(r"${\rm m (\mu^{+} \mu^{-})}$ [GeV]")
+    ax.set_xlabel(r"${\rm m (\mu^{+} \mu^{-})} \; \mathrm{[GeV/c^2]}$ ")
     ax.set_ylabel("Kandidatai / (1 GeV)")
     ax.set_xlim(40, 140)
 

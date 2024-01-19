@@ -27,24 +27,11 @@ with uproot.open("../../intermediate-data/histograms/muon_Rapidity.root") as fil
     width = bins[1] - bins[0]
 
 
-    ax.set_xlabel(r"$Greitumas$????")
+    ax.set_xlabel(r"$Sparta$")
     ax.set_ylabel("Kandidatai / (1 GeV)")
-    # ax.set_xlim(1, 5.5)
-    # ax.set_ylim(0, 700)
 
-    ax.hist(bins_leading[:-1], bins_leading, weights=hist_leading, label='Pirmaujantis', alpha=0.5)
-    ax.hist(bins_subleading[:-1], bins_subleading, weights=hist_subleading, label='Atsiliekantis', alpha=0.5)
-    # ax.scatter(bins_subleading[:-1], hist_subleading, label='subleading')
-
-    # ax.xaxis.set_major_locator(plt.MaxNLocator(6))
-    # ax.xaxis.set_minor_locator(plt.MaxNLocator(27))
-    # Set the number of major ticks
-    # num_major_ticks = 10
-    # ax.xaxis.set_major_locator(MultipleLocator(len(center) / (num_major_ticks)))
-
-    # # Set the number of minor ticks (5 minor ticks between each major tick)
-    # num_minor_ticks = 5
-    # ax.xaxis.set_minor_locator(MultipleLocator(1/ (num_minor_ticks + 1)))
+    ax.hist(bins_leading[:-1], bins_leading, weights=hist_leading, label='Greitesnis', alpha=0.5)
+    ax.hist(bins_subleading[:-1], bins_subleading, weights=hist_subleading, label='Lėtesnis', alpha=0.5)
 
 
     plt.locator_params(axis='x', nbins=10) 

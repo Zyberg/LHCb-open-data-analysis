@@ -61,7 +61,7 @@ def make_fit_config_file_name(fitLabel):
 # ---------------------------------------------------
 # TODO: fix and test this rule in environment with cvfs
 rule run_davinci:
-    input: davinci_input_file_name
+    # input: davinci_input_file_name
     output: davinci_output_file_name
     run:
         if config["davinci"]["is_enabled"]:
@@ -83,7 +83,16 @@ rule append_tlorenz_vector:
     shell: "cd scripts && root -q 'appendTLorentz.C(\"{input}\", \"{output}\")'"
 
 # Rules for histograms
-histogram_configs_tags = ['Z_MM', 'muon_PT', 'muon_ProbNNmu', 'muon_Rapidity', 'muon_Rapidity_sum', 'muon_PT_sum']
+histogram_configs_tags = [
+    'Z_MM',
+    'muon_PT',
+    'muon_ProbNNmu',
+    'muon_Rapidity',
+    'muon_Rapidity_sum',
+    'muon_Pseudorapidity',
+    'muon_Pseudorapidity_sum',
+    'muon_PT_sum'
+]
 
 wildcard_constraints:
     config_histogram = "|".join(histogram_configs_tags)

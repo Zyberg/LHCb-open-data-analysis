@@ -20,22 +20,12 @@ with uproot.open("../../intermediate-data/histograms/muon_Rapidity_sum.root") as
 
 
 
-    ax.set_xlabel(r"$Greitumas$????")
+    ax.set_xlabel(r"$Sparta$")
     ax.set_ylabel("Kandidatai / (1 GeV)")
     # ax.set_xlim(0, 1)
     ax.set_xlim(1, 5.5)
 
     ax.scatter(bins[:-1], hist)
-
-    # ax.xaxis.set_major_locator(plt.MaxNLocator(6))
-    # ax.xaxis.set_minor_locator(plt.MaxNLocator(27))
-    # Set the number of major ticks
-    # num_major_ticks = 10
-    # ax.xaxis.set_major_locator(MultipleLocator(len(center) / (num_major_ticks)))
-
-    # # Set the number of minor ticks (5 minor ticks between each major tick)
-    # num_minor_ticks = 5
-    # ax.xaxis.set_minor_locator(MultipleLocator(1/ (num_minor_ticks + 1)))
 
 
     plt.locator_params(axis='x', nbins=10) 

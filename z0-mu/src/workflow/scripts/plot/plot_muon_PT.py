@@ -26,13 +26,13 @@ with uproot.open("../../intermediate-data/histograms/muon_PT.root") as file:
     bins_subleading = np.array(bins_subleading)/1000
 
 
-    ax.set_xlabel(r"$p_T\; \mathrm{[GeV/c]}$")
+    ax.set_xlabel(r"$p_{\mathrm{T}} \left( \mathrm{\mu} \right) \; \mathrm{[GeV/c]}$")
     ax.set_ylabel("Kandidatai / (1 GeV)")
-    # ax.set_xlim(1, 5.5)
+    ax.set_xlim(24, 130)
     # ax.set_ylim(0, 700)
 
-    ax.hist(bins_leading[:-1], bins_leading, weights=hist_leading, label='Pirmaujantis', alpha=0.5)
-    ax.hist(bins_subleading[:-1], bins_subleading, weights=hist_subleading, label='Atsiliekantis', alpha=0.5)
+    ax.hist(bins_leading[:-1], bins_leading, weights=hist_leading, label='Greitesnis', alpha=0.5, log=True)
+    ax.hist(bins_subleading[:-1], bins_subleading, weights=hist_subleading, label='Lėtesnis', alpha=0.5, log=True)
     # ax.scatter(bins_subleading[:-1], hist_subleading, label='subleading')
 
     # ax.xaxis.set_major_locator(plt.MaxNLocator(6))
@@ -51,7 +51,6 @@ with uproot.open("../../intermediate-data/histograms/muon_PT.root") as file:
     ax.tick_params(axis='x', which='both', top=True, bottom=True)
 
     ax.tick_params(axis='y', which='both', left=True, right=True)
-    ax.yaxis.set_minor_locator(AutoMinorLocator(5))
 
 
 

@@ -20,29 +20,20 @@ with uproot.open("../../intermediate-data/histograms/muon_ProbNNmu.root") as fil
     # err_leading = file['ProbNNmu_Leading'].errors()
 
 
-
-
     bins = np.array(bins_leading)/1000
     center = (bins[:-1] + bins[1:]) / 2
     width = bins[1] - bins[0]
 
 
-    ax.set_xlabel(r"${\rm m (\mu^{+} \mu^{-})}$ [GeV]")
+    ax.set_xlabel(r"${\rm P (\mu^{+} \mu^{-})}$ [GeV]")
     ax.set_ylabel("Kandidatai / (1 GeV)")
     ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1800)
 
-    ax.scatter(bins_leading[:-1], hist_leading, label='Pirmaujantis')
-    ax.scatter(bins_subleading[:-1], hist_subleading, label='Atsiliekantis')
+    plt.axvline(x=0.5, ls='--', color='black', alpha=0.4, zorder=1)
 
-    # ax.xaxis.set_major_locator(plt.MaxNLocator(6))
-    # ax.xaxis.set_minor_locator(plt.MaxNLocator(27))
-    # Set the number of major ticks
-    # num_major_ticks = 10
-    # ax.xaxis.set_major_locator(MultipleLocator(len(center) / (num_major_ticks)))
-
-    # # Set the number of minor ticks (5 minor ticks between each major tick)
-    # num_minor_ticks = 5
-    # ax.xaxis.set_minor_locator(MultipleLocator(1/ (num_minor_ticks + 1)))
+    ax.scatter(bins_leading[:-1], hist_leading, label='Greitesnis', zorder=4)
+    ax.scatter(bins_subleading[:-1], hist_subleading, label='Lėtesnis', zorder=3)
 
 
     plt.locator_params(axis='x', nbins=10) 

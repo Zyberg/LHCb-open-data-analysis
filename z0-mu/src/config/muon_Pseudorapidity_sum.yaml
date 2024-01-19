@@ -1,0 +1,21 @@
+name: "canvas_sum_Pseudorapidity"
+title: "Lepton Sum Pseudorapidity Distribution"
+outputFilename: "../intermediate-data/histograms/muon_Pseudorapidity_sum.root" 
+outputChartFilename: "../../results/muon_Pseudorapidity_sum.png"
+
+
+histograms:
+  - name: "SumPseudorapidity"
+    title: "Sum Pseudorapidity"
+    expression: "muon_sum_LorentzVector.PseudoRapidity()"
+    nbinsx: 100
+    xlow: 1.0
+    xup: 5.5
+    color: 416   # kGreen
+
+
+stack:
+  name: "Sum_Pseudorapidity_stack"
+  title: "Lepton Sum Pseudorapidity"
+  xaxisTitle: "Pseudorapidity"
+  yaxisTitle: "Frequency"

@@ -1,0 +1,28 @@
+name: "canvas_pseudorapidity"
+title: "Muon Pseudorapidity Distribution"
+outputFilename: "../intermediate-data/histograms/muon_Pseudorapidity.root" 
+outputChartFilename: "../../results/muon_Pseudorapidity.png"
+
+
+histograms:
+  - name: "LeadingPseudorapidity"
+    title: "Pseudorapidity Leading"
+    expression: "muon1_PT > muon2_PT ? muon1_LorentzVector.PseudoRapidity() : muon2_LorentzVector.PseudoRapidity()"
+    nbinsx: 100
+    xlow: 1.0
+    xup: 5.5
+    color: 416   # kGreen
+    
+  - name: "SubleadingPseudorapidity"
+    title: "Pseudorapidity Subleading"
+    expression: "muon1_PT > muon2_PT ? muon2_LorentzVector.PseudoRapidity() : muon1_LorentzVector.PseudoRapidity()"
+    nbinsx: 100
+    xlow: 1.0
+    xup: 5.5
+    color: 600   # kBlue
+
+stack:
+  name: "Pseudorapidity_stack"
+  title: "Muon Pseudorapidity Distribution"
+  xaxisTitle: "Pseudorapidity"
+  yaxisTitle: "Frequency"

@@ -28,8 +28,8 @@ mytuple.ToolList += [
 ]
 
 DaVinci().EventPreFilters = [ stripFilter ]
-DaVinci().HistogramFile = "Z_Histos.root"           
-DaVinci().TupleFile = "Z_test.root"        
+DaVinci().HistogramFile = "Z_2012Up_histos.root"           
+DaVinci().TupleFile = "Z_2012Up.root"        
 DaVinci().EvtMax = -1                              
 DaVinci().Simulation   = False                       
 DaVinci().WriteFSR = True
@@ -40,7 +40,7 @@ DaVinci().DDDBtag = 'dddb-20130929-1'
 DaVinci().CondDBtag = 'cond-20141107' 
 DaVinci().Lumi = False
 
-DaVinci().UserAlgorithms += [  mytuple ]
+DaVinci().UserAlgorithms += [ mytuple ]
 DaVinci().MainOptions  = ""                   
 
 #This allows a local test
