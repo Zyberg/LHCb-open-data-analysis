@@ -28,22 +28,17 @@ with uproot.open("../../intermediate-data/histograms/muon_PT.root") as file:
 
     ax.set_xlabel(r"$p_{\mathrm{T}} \left( \mathrm{\mu} \right) \; \mathrm{[GeV/c]}$")
     ax.set_ylabel("Kandidatai / (1 GeV)")
-    ax.set_xlim(24, 130)
+    ax.set_xlim(25, 130)
     # ax.set_ylim(0, 700)
 
     ax.hist(bins_leading[:-1], bins_leading, weights=hist_leading, label='Greitesnis', alpha=0.5, log=True)
     ax.hist(bins_subleading[:-1], bins_subleading, weights=hist_subleading, label='Lėtesnis', alpha=0.5, log=True)
-    # ax.scatter(bins_subleading[:-1], hist_subleading, label='subleading')
 
-    # ax.xaxis.set_major_locator(plt.MaxNLocator(6))
-    # ax.xaxis.set_minor_locator(plt.MaxNLocator(27))
-    # Set the number of major ticks
-    # num_major_ticks = 10
-    # ax.xaxis.set_major_locator(MultipleLocator(len(center) / (num_major_ticks)))
 
-    # # Set the number of minor ticks (5 minor ticks between each major tick)
-    # num_minor_ticks = 5
-    # ax.xaxis.set_minor_locator(MultipleLocator(1/ (num_minor_ticks + 1)))
+
+    plt.plot([25.1, 25.1], [0, 1], 'k-', lw=2, color='red')
+    # plt.text(0.076, 0.119, '25', fontsize=28, transform=plt.gcf().transFigure, color='red')
+    plt.text(0.071, 0.09, '25', fontsize=28, transform=plt.gcf().transFigure, color='red')
 
 
     plt.locator_params(axis='x', nbins=10) 

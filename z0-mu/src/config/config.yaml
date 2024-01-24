@@ -7,5 +7,5 @@ davinci:
     strippingNumber: "21r1"
 
 cutflow:
-  muon_PT: 25000
+  muon_PT: 26000
 

@@ -30,3 +30,6 @@ void draw(const std::string inputFileName, const std::string configFileName) {
   graphingManager->SetUpCanvases();
   graphingManager->Print();
 }
+
+// mm 89427.789
+// rms 8731.2264

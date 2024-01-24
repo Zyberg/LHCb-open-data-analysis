@@ -21,7 +21,7 @@ with uproot.open("../../intermediate-data/histograms/muon_PT_sum.root") as file:
 
     bin_centers = 0.5*(bins[1:] + bins[:-1])
 
-    ax.set_xlabel(r"$p_{\mathrm{T}} \left( \mathrm{Z^0} \right) \; \mathrm{[GeV/c]}$")
+    ax.set_xlabel(r"$p_{\mathrm{T}} \left( \mathrm{Z} \right) \; \mathrm{[GeV/c]}$")
     ax.set_ylabel("Kandidatai / (1 GeV)")
     ax.set_xlim(0, 120)
 
